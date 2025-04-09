@@ -241,6 +241,8 @@ export interface Group {
   rotate: number
   elements: BaseElement[]
   order: number
+  isFlipH: boolean
+  isFlipV: boolean
 }
 export type Element = BaseElement | Group
 

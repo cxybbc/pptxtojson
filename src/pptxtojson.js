@@ -464,6 +464,9 @@ async function processGroupSpNode(node, warpObj, source) {
   const chcx = parseInt(xfrmNode['a:chExt']['attrs']['cx']) * RATIO_EMUs_Points
   const chcy = parseInt(xfrmNode['a:chExt']['attrs']['cy']) * RATIO_EMUs_Points
 
+  const isFlipV = getTextByPathList(xfrmNode, ['attrs', 'flipV']) === '1'
+  const isFlipH = getTextByPathList(xfrmNode, ['attrs', 'flipH']) === '1'
+
   let rotate = getTextByPathList(xfrmNode, ['attrs', 'rot']) || 0
   if (rotate) rotate = angleToDegrees(rotate)
 
@@ -492,6 +495,8 @@ async function processGroupSpNode(node, warpObj, source) {
     height: cy,
     rotate,
     order,
+    isFlipV,
+    isFlipH,
     elements: elements.map(element => ({
       ...element,
       left: (element.left - chx) * ws,

@@ -459,7 +459,7 @@ export async function getSlideBackgroundFill(warpObj) {
   }
 }
 
-export async function getShapeFill(node, isSvgMode, warpObj, source) {
+export async function getShapeFill(node, pNode, isSvgMode, warpObj, source) {
   const fillType = getFillType(getTextByPathList(node, ['p:spPr']))
   let type = 'color'
   let fillValue = ''
@@ -490,6 +490,19 @@ export async function getShapeFill(node, isSvgMode, warpObj, source) {
     const clrName = getTextByPathList(node, ['p:style', 'a:fillRef'])
     fillValue = getSolidFill(clrName, undefined, undefined, warpObj)
     type = 'color'
+  }
+  if (!fillValue && pNode) {
+    const grpFill = getTextByPathList(node, ['p:spPr', 'a:grpFill'])
+    if (grpFill) {
+      const grpShpFill = pNode['p:grpSpPr']
+      if (grpShpFill) {
+        const spShpNode = { 'p:spPr': grpShpFill }
+        return getShapeFill(spShpNode, node, isSvgMode, warpObj, source)
+      }
+    } 
+    else if (fillType === 'NO_FILL') {
+      return isSvgMode ? 'none' : ''
+    }
   }
 
   return {

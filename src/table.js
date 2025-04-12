@@ -55,7 +55,7 @@ export async function getTableCellParams(tcNode, thisTblStyle, cellSource, warpO
   const getCelFill = getTextByPathList(tcNode, ['a:tcPr'])
   if (getCelFill) {
     const cellObj = { 'p:spPr': getCelFill }
-    const fill = await getShapeFill(cellObj, undefined, warpObj)
+    const fill = await getShapeFill(cellObj, undefined, false, warpObj, 'slide')
 
     if (fill && fill.type === 'color' && fill.value) {
       fillColor = fill.value 

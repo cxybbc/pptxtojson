@@ -131,6 +131,12 @@ document.querySelector('input').addEventListener('change', evt => {
 - 垂直坐标 `top`
 - 宽度 `width`
 - 高度 `height`
+- 边框颜色 `borderColor`
+- 边框宽度 `borderWidth`
+- 边框类型（实线、点线、虚线） `borderType`
+- 非实线边框样式 `borderStrokeDasharray`
+- 裁剪形状 `geom`
+- 裁剪范围 `rect`
 - 图片地址（base64） `src`
 - 旋转角度 `rotate`
 

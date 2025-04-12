@@ -740,6 +740,20 @@ async function processPicNode(node, warpObj, source) {
       order,
     }
   }
+
+  let rect
+  const srcRectAttrs = getTextByPathList(node, ['p:blipFill', 'a:srcRect', 'attrs'])
+  if (srcRectAttrs && (srcRectAttrs.t || srcRectAttrs.b || srcRectAttrs.l || srcRectAttrs.r)) {
+    rect = {}
+    if (srcRectAttrs.t) rect.t = srcRectAttrs.t / 1000
+    if (srcRectAttrs.b) rect.b = srcRectAttrs.b / 1000
+    if (srcRectAttrs.l) rect.l = srcRectAttrs.l / 1000
+    if (srcRectAttrs.r) rect.r = srcRectAttrs.r / 1000
+  }
+  const geom = getTextByPathList(node, ['p:spPr', 'a:prstGeom', 'attrs', 'prst']) || 'rect'
+
+  const { borderColor, borderWidth, borderType, strokeDasharray } = getBorder(node, undefined, warpObj)
+
   return {
     type: 'image',
     top,
@@ -751,6 +765,12 @@ async function processPicNode(node, warpObj, source) {
     isFlipV,
     isFlipH,
     order,
+    rect,
+    geom,
+    borderColor,
+    borderWidth,
+    borderType,
+    borderStrokeDasharray: strokeDasharray,
   }
 }
 

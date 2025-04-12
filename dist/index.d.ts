@@ -94,6 +94,17 @@ export interface Image {
   isFlipH: boolean
   isFlipV: boolean
   order: number
+  rect?: {
+    t?: number
+    b?: number
+    l?: number
+    r?: number
+  }
+  geom: string
+  borderColor: string
+  borderWidth: number
+  borderType: 'solid' | 'dashed' | 'dotted'
+  borderStrokeDasharray: string
 }
 
 export interface TableCell {

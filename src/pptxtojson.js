@@ -612,12 +612,14 @@ async function genShape(node, pNode, slideLayoutSpNode, slideMasterSpNode, name,
 
   if (shadow) data.shadow = shadow
 
+  const isHasValidText = data.content && hasValidText(data.content)
+
   if (custShapType && type !== 'diagram') {
     const ext = getTextByPathList(slideXfrmNode, ['a:ext', 'attrs'])
     const w = parseInt(ext['cx']) * RATIO_EMUs_Points
     const h = parseInt(ext['cy']) * RATIO_EMUs_Points
     const d = getCustomShapePath(custShapType, w, h)
-    if (data.content && !hasValidText(data.content)) data.content = ''
+    if (!isHasValidText) data.content = ''
 
     return {
       ...data,
@@ -626,11 +628,19 @@ async function genShape(node, pNode, slideLayoutSpNode, slideMasterSpNode, name,
       path: d,
     }
   }
-  if (shapType && (type === 'obj' || !type)) {
-    if (data.content && !hasValidText(data.content)) data.content = ''
+  if (shapType && (type === 'obj' || !type || shapType !== 'rect')) {
+    if (!isHasValidText) data.content = ''
     return {
       ...data,
       type: 'shape',
+      shapType,
+    }
+  }
+  if (shapType && !isHasValidText && (fill || borderWidth)) {
+    return {
+      ...data,
+      type: 'shape',
+      content: '',
       shapType,
     }
   }

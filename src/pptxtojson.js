@@ -665,7 +665,12 @@ async function processPicNode(node, warpObj, source) {
   const imgFileExt = extractFileExtension(imgName).toLowerCase()
   const zip = warpObj['zip']
   const imgArrayBuffer = await zip.file(imgName).async('arraybuffer')
-  const xfrmNode = node['p:spPr']['a:xfrm']
+
+  let xfrmNode = node['p:spPr']['a:xfrm']
+  if (!xfrmNode) {
+    const idx = getTextByPathList(node, ['p:nvPicPr', 'p:nvPr', 'p:ph', 'attrs', 'idx'])
+    if (idx) xfrmNode = getTextByPathList(warpObj['slideLayoutTables'], ['idxTable', idx, 'p:spPr', 'a:xfrm'])
+  }
 
   const mimeType = getMimeType(imgFileExt)
   const { top, left } = getPosition(xfrmNode, undefined, undefined)

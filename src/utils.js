@@ -151,7 +151,10 @@ export function toHex(n) {
 }
 
 export function hasValidText(htmlString) {
-  if (!DOMParser) return true
+  if (typeof DOMParser === 'undefined') {
+    const text = htmlString.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ')
+    return text.trim() !== ''
+  }
 
   const parser = new DOMParser()
   const doc = parser.parseFromString(htmlString, 'text/html')

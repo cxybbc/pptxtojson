@@ -239,6 +239,7 @@ export interface Math {
   latex: string
   picBase64: string
   order: number
+  text?: string
 }
 
 export type BaseElement = Shape | Text | Image | Table | Chart | Video | Audio | Diagram | Math

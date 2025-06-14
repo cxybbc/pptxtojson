@@ -212,6 +212,7 @@ document.querySelector('input').addEventListener('change', evt => {
 - 高度 `height`
 - 公式图片 `picBase64`
 - LaTeX表达式（仅支持常见结构） `latex`
+- 文本（文本和公式混排时存在） `text`
 
 ##### Smart图
 - 类型 `type='diagram'`

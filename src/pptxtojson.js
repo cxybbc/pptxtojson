@@ -438,6 +438,12 @@ async function processMathNode(node, warpObj, source) {
   const blipFill = getTextByPathList(fallback, ['p:sp', 'p:spPr', 'a:blipFill'])
   const picBase64 = await getPicFill(source, blipFill, warpObj)
 
+  let text = ''
+  if (getTextByPathList(choice, ['p:sp', 'p:txBody', 'a:p', 'a:r'])) {
+    const sp = getTextByPathList(choice, ['p:sp'])
+    text = genTextBody(sp['p:txBody'], sp, undefined, undefined, warpObj)
+  }
+
   return {
     type: 'math',
     top,
@@ -446,6 +452,7 @@ async function processMathNode(node, warpObj, source) {
     height,
     latex,
     picBase64,
+    text,
     order,
   }
 }

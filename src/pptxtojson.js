@@ -12,6 +12,7 @@ import { getShadow } from './shadow'
 import { getTableBorders, getTableCellParams, getTableRowParams } from './table'
 import { RATIO_EMUs_Points } from './constants'
 import { findOMath, latexFormart, parseOMath } from './math'
+import { getShapePath } from './shapePath'
 
 export async function parse(file) {
   const slides = []
@@ -635,12 +636,17 @@ async function genShape(node, pNode, slideLayoutSpNode, slideMasterSpNode, name,
       path: d,
     }
   }
+
+  let shapePath = ''
+  if (shapType) shapePath = getShapePath(shapType, width, height, node)
+
   if (shapType && (type === 'obj' || !type || shapType !== 'rect')) {
     if (!isHasValidText) data.content = ''
     return {
       ...data,
       type: 'shape',
       shapType,
+      path: shapePath,
     }
   }
   if (shapType && !isHasValidText && (fill || borderWidth)) {
@@ -649,6 +655,7 @@ async function genShape(node, pNode, slideLayoutSpNode, slideMasterSpNode, name,
       type: 'shape',
       content: '',
       shapType,
+      path: shapePath,
     }
   }
   return {

@@ -23,6 +23,11 @@ export default {
       sourcemap: true,
     },
     {
+      file: 'dist/index.cjs',
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
       file: 'dist/index.js',
       format: 'es',
       sourcemap: true,

@@ -9,9 +9,9 @@
 
 # 🎯 注意事项
 ### ⚒️ 使用场景
-本仓库诞生于项目 [PPTist](https://github.com/pipipi-pikachu/PPTist) ，希望为其“导入 .pptx 文件功能”提供一个参考示例。不过就目前来说，解析出来的PPT信息与源文件在样式上还是存在差距，还不足以直接运用到生产环境中。
+本仓库诞生于项目 [PPTist](https://github.com/pipipi-pikachu/PPTist) ，希望为其“导入 .pptx 文件功能”提供一个参考示例。不过就目前来说，解析出来的PPT信息与源文件在样式上还是存在差异。
 
-但如果你只是需要提取PPT文件的文本内容、媒体资源信息、结构信息等，对排版/样式精准度没有特别高的要求，那么 pptxtojson 可能会对你有帮助。
+但如果你只是需要提取PPT文件的文本内容、媒体资源信息、结构信息等，或者对排版/样式精准度没有特别高的要求，那么 pptxtojson 可能会对你有帮助。
 
 ### 📏 长度值单位
 输出的JSON中，所有数值长度值单位都为`pt`（point）
@@ -23,6 +23,8 @@ npm install pptxtojson
 ```
 
 # 💿用法
+
+### 浏览器
 ```html
 <input type="file" accept="application/vnd.openxmlformats-officedocument.presentationml.presentation"/>
 ```
@@ -42,8 +44,8 @@ document.querySelector('input').addEventListener('change', evt => {
 })
 ```
 
+### 输出示例
 ```javascript
-// 输出示例
 {
 	"slides": [
 		{
@@ -158,7 +160,7 @@ document.querySelector('input').addEventListener('change', evt => {
 - 旋转角度 `rotate`
 - 形状类型 `shapType`
 - 垂直对齐方向 `vAlign`
-- 路径（自定义形状） `path`
+- 形状路径 `path`
 - 元素名 `name`
 
 ##### 表格

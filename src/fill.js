@@ -33,8 +33,10 @@ export function getFillType(node) {
 }
 
 export async function getPicFill(type, node, warpObj) {
+  if (!node) return ''
+
   let img
-  const rId = node['a:blip']['attrs']['r:embed']
+  const rId = getTextByPathList(node, ['a:blip', 'attrs', 'r:embed'])
   let imgPath
   if (type === 'slideBg' || type === 'slide') {
     imgPath = getTextByPathList(warpObj, ['slideResObj', rId, 'target'])
@@ -58,7 +60,7 @@ export async function getPicFill(type, node, warpObj) {
     imgPath = escapeHtml(imgPath)
 
     const imgExt = imgPath.split('.').pop()
-    if (imgExt === 'xml') return undefined
+    if (imgExt === 'xml') return ''
 
     const imgArrayBuffer = await warpObj['zip'].file(imgPath).async('arraybuffer')
     const imgMimeType = getMimeType(imgExt)

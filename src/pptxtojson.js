@@ -13,6 +13,8 @@ import { getTableBorders, getTableCellParams, getTableRowParams } from './table'
 import { RATIO_EMUs_Points } from './constants'
 import { findOMath, latexFormart, parseOMath } from './math'
 import { getShapePath } from './shapePath'
+// 在processPicNode函数中添加透明度提取
+import { getPicFillOpacity } from './fill'
 
 export async function parse(file) {
   const slides = []
@@ -781,6 +783,9 @@ async function processPicNode(node, warpObj, source) {
   }
   const geom = getTextByPathList(node, ['p:spPr', 'a:prstGeom', 'attrs', 'prst']) || 'rect'
 
+  const blipFillNode = node['p:blipFill']
+const opacity = getPicFillOpacity(blipFillNode)
+
   const { borderColor, borderWidth, borderType, strokeDasharray } = getBorder(node, undefined, warpObj)
 
   return {
@@ -800,6 +805,7 @@ async function processPicNode(node, warpObj, source) {
     borderWidth,
     borderType,
     borderStrokeDasharray: strokeDasharray,
+    opacity, // 新增透明度属性
   }
 }
 
